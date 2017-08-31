@@ -113,7 +113,9 @@ class TaskTest extends UnitTest
     
     protected function runTaskTests()
     {
-        yield parallel($this->coroutines);
+        foreach ($this->coroutines as $coroutine) {
+            yield $coroutine;
+        }
         $this->event->fire('test_task_done');
     }
 
