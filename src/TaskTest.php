@@ -2,14 +2,11 @@
 
 namespace ZanPHP\Testing;
 
-
-use ZanPHP\ConnectionPool\ConnectionInitiator;
 use ZanPHP\Coroutine\Context;
 use ZanPHP\Coroutine\Event;
 use ZanPHP\Coroutine\EventChain;
 use ZanPHP\Coroutine\Task;
-use ZanPHP\Database\Sql\SqlMapInitiator;
-use ZanPHP\Database\Sql\Table;
+
 use ZanPHP\Support\Time;
 
 class TaskTest extends UnitTest
@@ -74,16 +71,6 @@ class TaskTest extends UnitTest
 
     protected function initTask()
     {
-        if (!self::$isInitialized) {
-            //sql map
-            SqlMapInitiator::getInstance()->init();
-            //table
-            Table::getInstance()->init();
-            //connection pool init
-            ConnectionInitiator::getInstance()->init('connection', null);
-            self::$isInitialized = true;
-        }
-
         $this->event = new Event();
         $this->eventChain = $this->event->getEventChain();
         
@@ -114,9 +101,13 @@ class TaskTest extends UnitTest
     protected function runTaskTests()
     {
         foreach ($this->coroutines as $coroutine) {
-            yield $coroutine;
+            try {
+                yield $coroutine;
+            }
+            finally{
+                $this->event->fire('test_task_done');
+            }
         }
-        $this->event->fire('test_task_done');
     }
 
 }
