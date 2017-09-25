@@ -100,13 +100,13 @@ class TaskTest extends UnitTest
     
     protected function runTaskTests()
     {
-        foreach ($this->coroutines as $coroutine) {
-            try {
+        try{
+            foreach ($this->coroutines as $coroutine) {
                 yield $coroutine;
             }
-            finally{
-                $this->event->fire('test_task_done');
-            }
+        }
+        finally{
+            $this->event->fire('test_task_done');
         }
     }
 
