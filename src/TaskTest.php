@@ -5,7 +5,7 @@ namespace ZanPHP\Testing;
 use ZanPHP\Coroutine\Context;
 use ZanPHP\Coroutine\Event;
 use ZanPHP\Coroutine\EventChain;
-use ZanPHP\Coroutine\Task;
+use ZanPHP\Testing\SyncTask as Task;
 
 use ZanPHP\Support\Time;
 
