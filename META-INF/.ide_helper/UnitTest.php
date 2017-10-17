@@ -13,17 +13,17 @@ class UnitTest extends \PHPUnit_Framework_TestCase
 
     protected function invoke(&$object, $methodName, array $parameters = [])
     {
-        $this->UnitTest->invoke(&$object, $methodName,$parameters);
+        $this->UnitTest->invoke($object, $methodName,$parameters);
     }
 
     protected function getProperty(&$object, $propertyName)
     {
-        $this->UnitTest->getProperty(&$object, $propertyName);
+        $this->UnitTest->getProperty($object, $propertyName);
     }
 
     protected function setPropertyValue(&$object, $propertyName, $value)
     {
-        $this->UnitTest->setPropertyValue(&$object, $propertyName, $value);
+        $this->UnitTest->setPropertyValue($object, $propertyName, $value);
     }
 
 }
